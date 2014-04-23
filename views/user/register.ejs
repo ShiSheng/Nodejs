@@ -1,0 +1,65 @@
+<%- include ../layout/header %>
+<div class="auto w980">
+	<div class="mt20 mb20 w600 auto bdc bg-white">
+		<h4 class="f14 p5 pl10 bgf0 mt1 bbc">注册</h4>
+		<div class="p30">
+			<form id="registerForm">
+			<div class="fix">
+				<span class="l w140 g6 mr20 tr pt5"><span class="red fs">*</span>用户名：</span>
+				<div class="cell">
+					<input name="name" class="pct80 p5" placeholder="请输入用户名" required>
+				</div>
+			</div>
+			<div class="fix mt20">
+				<span class="l w140 g6 mr20 tr pt5"><span class="red fs">*</span>邮箱：</span>
+				<div class="cell">
+					<input type="email" name="email" class="pct80 p5" placeholder="请输入邮箱" required>
+				</div>
+			</div>
+			<div class="fix mt20">
+				<span class="l w140 g6 mr20 tr pt5"><span class="red fs">*</span>请输入密码：</span>
+				<div class="cell">
+					<input name="password" type="password" class="pct80 p5" required>
+				</div>
+			</div>
+			<div class="fix mt20">
+				<span class="l w140 g6 mr20 tr pt5"><span class="red fs">*</span>请再次输入密码：</span>
+				<div class="cell">
+					<input name="repassword" type="password" class="pct80 p5" required>
+				</div>
+			</div>
+			<div class="fix mt20">
+				<span class="l w140 mr20">&nbsp;</span>
+				<div class="cell">
+					<p><input type="checkbox" id="agree" class="vn" checked><label for="agree" class="f12">我已经阅读并同意<a href="#">xxx协议</a></label></p>
+					<h6 class="mt20 f14">
+						<input type="submit" id="submit" class="abs-clip">
+						<label for="submit" class="btn btn-red w120">免费注册</label>
+					</h6>
+				</div>
+			</div>
+			</form>
+		</div>
+	</div>
+</div>
+<script src="../../js/jq.js"></script>
+<script src="../../js/hValidate.js"></script>
+<script>
+	formValidate("registerForm","/users/register",function(k){
+		var json = k;
+		if (json.error){
+			alert(json.msg);
+		}else{
+			alert(json.msg);
+			window.location.href=json.href;
+		}
+		
+	},function(k){
+		if(!$("#agree").attr("checked")){
+			alert("请阅读并同意《认证投资人使用协议》");
+			k.stop = true;
+		}
+		return false;
+	});
+</script>
+<%- include ../layout/footer %>

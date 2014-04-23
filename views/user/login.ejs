@@ -1,0 +1,46 @@
+<%- include ../layout/header %>
+	
+<div class="auto w980">
+	<div class="mt20 mb20 w600 auto bdc bg-white">
+		<h4 class="f14 p5 pl10 bgf0 mt1 bbc">登录</h4>
+		<div class="p30">
+			<form id="loginForm">
+			<div class="fix">
+				<span class="l w140 g6 mr20 tr pt5"><span class="red fs">*</span>用户名：</span>
+				<div class="cell">
+					<input name="name" class="pct80 p5" placeholder="请输入用户名" required>
+				</div>
+			</div>
+			<div class="fix mt20">
+				<span class="l w140 g6 mr20 tr pt5"><span class="red fs">*</span>密码：</span>
+				<div class="cell">
+					<input name="password" type="password" class="pct80 p5" required>
+				</div>
+			</div>
+			<div class="fix mt20">
+				<span class="l w140 mr20">&nbsp;</span>
+				<div class="cell">
+					<h6 class="mt20 f14">
+						<input type="submit" id="submit" class="abs-clip">
+						<label for="submit" class="btn btn-red w100">登录</label>
+					</h6>
+				</div>
+			</div>
+			</form>
+		</div>
+	</div>
+</div>
+<script src="../../js/jq.js"></script>
+<script src="../../js/hValidate.js"></script>
+<script>
+	formValidate("loginForm","/users/login",function(k){
+		var json = k;
+		if (json.error){
+			alert(json.msg);
+		}else{
+			alert(json.msg);
+			window.location.href=json.href;
+		}
+	});
+</script>
+<%- include ../layout/footer %>

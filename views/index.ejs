@@ -1,0 +1,14 @@
+<%- include layout/header %>
+	<div class="auto w980">
+		<%if(error){%>
+			<script>alert('<%=error%>')</script>
+		<%}%>
+		<%if(user){%>
+			<h1>欢迎您，<%=user.name%>！
+		<%}%>
+		<p class="f14 p10"><a href="/users/register">注册</a></p>
+		<p class="f14 p10"><a href="/users/login">登录</a></p>
+		<p class="f14 p10"><a href="/users/logout">退出登录</a></p>
+		<p class="f14 p10"><a href="/chat/index">聊天室</a></p>
+	</div>
+<%- include layout/footer %>

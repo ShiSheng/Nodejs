@@ -1,0 +1,56 @@
+<%- include ../layout/header %>
+<script src="/js/socket.io.js"></script>
+<script>
+        $(function(){
+            var iosocket = io.connect();
+ 
+            iosocket.on('connect', function () {
+                $('#incomingChatMessages').append($('<li>Connected</li>'));
+ 
+                iosocket.on('message', function(message) {
+                    $('#incomingChatMessages').append($('<li class="f14">'+message+'</li>'));
+                });
+                iosocket.on('disconnect', function() {
+                    $('#incomingChatMessages').append('<li>Disconnected</li>');
+                });
+            });
+ 
+            $('#outgoingChatMessage').keypress(function(event) {
+                if(event.which == 13) {
+                    event.preventDefault();
+                    iosocket.send("<p><a class='f14' href='javascript:void(0);'><%=user.name%></a>:</p><p class='f14' style='text-indent:2em;'>"+$('#outgoingChatMessage').val())+"</p>";
+                    $('#incomingChatMessages').append($('<li style="text-align:right;"></li>').text($('#outgoingChatMessage').val()));
+                    $('#outgoingChatMessage').val('');
+                }
+            });
+            $('#submit').click(function(event) {
+                    event.preventDefault();
+                    iosocket.send("<p><a class='f14' href='javascript:void(0);'><%=user.name%></a>:</p><p class='f14' style='text-indent:2em;'>"+$('#outgoingChatMessage').val())+"</p>";
+                    $('#incomingChatMessages').append($('<li style="text-align:right;"></li>').text($('#outgoingChatMessage').val()));
+                    $('#outgoingChatMessage').val('');
+            });
+        });
+    </script>
+	<div class="auto w980">
+		<div class="fix">
+			<div class="l w140 g6 mr20 tr pt5">
+				<ul>
+					<%users.forEach(function(el,index){%>
+						<li><a href="mailto:<%=el.email%>"><%=el.name%><%=index%></a></li>
+					<%})%>
+				</ul>
+			</div>
+			<div class="cell">
+				<div id="content" class="pct80 bdd p20 mt20 mb20 " style="max-height:500px;overflow:auto;">
+					<ul id="incomingChatMessages">
+						<li></li>
+					</ul>
+				</div>
+				<textarea id="outgoingChatMessage" name="name" class="pct80 p5" placeholder="say someting..." required></textarea>
+				<h6 class="f14">
+					<input type="button" id="submit" class="abs-clip">
+					<label for="submit" class="btn btn-red w120">发送</label>
+				</h6>			</div>
+		</div>
+	</div>
+<%- include ../layout/footer %>

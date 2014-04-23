@@ -1,0 +1,9 @@
+<%- include ../layout/header %>
+	<div class="auto w980">
+		<% for(var i = 0 ;i <data.length;i++){%>
+		<h1><%=data[i].name %></h1>
+		<a href="mailto:<%=data[i].email %>"><%=data[i].email %></a>
+		<span><%=data[i].password %></span>
+		<% }%>
+	</div>
+<%- include ../layout/footer %>
