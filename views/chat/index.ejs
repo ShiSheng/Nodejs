@@ -5,10 +5,30 @@
             var iosocket = io.connect();
  
             iosocket.on('connect', function () {
-                $('#incomingChatMessages').append($('<li>Connected</li>'));
- 
+                //登陆
+                iosocket.emit('online',{user:"<%= user.name%>"});
+                iosocket.on('online',function(data){
+                    var str = '';
+                    for(var i in data.userList){
+                        str+='<li><a href="mailto:#">'+data.userList[i].name+'</a></li>'
+                    }
+                    $('#userlist').html(str);
+                    $('#incomingChatMessages').append($('<li>'+data.user+'进入了聊天室。</li>'));
+                });
+
+
                 iosocket.on('message', function(message) {
                     $('#incomingChatMessages').append($('<li class="f14">'+message+'</li>'));
+                });
+
+                //退出
+                iosocket.on('offline',function(data){
+                    var str = '';
+                    for(var i in data.userList){
+                        str+='<li><a href="mailto:#">'+data.userList[i].name+'</a></li>'
+                    }
+                    $('#userlist').html(str);
+                    $('#incomingChatMessages').append($('<li>'+data.user+'退出了聊天室。</li>'));
                 });
                 iosocket.on('disconnect', function() {
                     $('#incomingChatMessages').append('<li>Disconnected</li>');
@@ -29,15 +49,16 @@
                     $('#incomingChatMessages').append($('<li style="text-align:right;"></li>').text($('#outgoingChatMessage').val()));
                     $('#outgoingChatMessage').val('');
             });
+            $("#clearTextarea").click(function(){
+                $("#incomingChatMessages").empty();
+            });
         });
     </script>
 	<div class="auto w980">
 		<div class="fix">
 			<div class="l w140 g6 mr20 tr pt5">
-				<ul>
-					<%users.forEach(function(el,index){%>
-						<li><a href="mailto:<%=el.email%>"><%=el.name%><%=index%></a></li>
-					<%})%>
+                                            <h2 class="f14 lh30">在线列表</h2>
+				<ul id="userlist">
 				</ul>
 			</div>
 			<div class="cell">
@@ -47,10 +68,17 @@
 					</ul>
 				</div>
 				<textarea id="outgoingChatMessage" name="name" class="pct80 p5" placeholder="say someting..." required></textarea>
-				<h6 class="f14">
-					<input type="button" id="submit" class="abs-clip">
-					<label for="submit" class="btn btn-red w120">发送</label>
-				</h6>			</div>
+                                            <div class="fix">
+                                                <h6 class="f14 mt20 mb20 l">
+                                                    <input type="button" id="submit" class="abs-clip">
+                                                    <label for="submit" class="btn btn-green w70">发送</label>
+                                                </h6>
+                                                <h6 class="f14 mt20 mb20 l ml20">
+                                                    <input type="button" id="clearTextarea" class="abs-clip">
+                                                    <label for="clearTextarea" class="btn btn-blue w70">清屏</label>
+                                                </h6>
+                                                </div>
+                                            </div>
 		</div>
 	</div>
 <%- include ../layout/footer %>
