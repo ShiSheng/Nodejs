@@ -6,32 +6,11 @@ var models = require('../models/user');
 
 var User = models.User;
 
-// var sessionStorage = require('../models/sessionStorage');
-// function checkLogin(req,res,next){
-// 	if(req.session.user){
-// 		//已经登录了
-// 		sessionStorage.setItem('error',"您已经登录了");
-// 		return res.redirect('/');
-// 	}
-// 	next();
-// }
-// function checkNotLogin(req,res,next){
-// 	if(!req.session.user){
-// 		//需要登录了
-// 		sessionStorage.setItem('error',"您请先登录");
-// 		return res.redirect('/user/login');
-// 	}
-// 	next();
-// }
+var crypto = require('crypto');
 
-/* GET users listing. */
-router.get('/init', function(req, res) {
-	new User({
-		email:"125759748@163.com",
-		name:"Crow"
-	}).save();
-  	res.send('Data inited.');
-});
+
+
+
 //登录页面
 //router.get('/login',checkLogin);
 router.get('/login', function(req, res) {
@@ -45,9 +24,11 @@ router.get('/logout', function(req, res) {
 });
 //登录提交
 router.post('/login', function(req, res) {
+	var md5 = crypto.createHash('md5'),
+		pwd = md5.update(req.body.password).digest('hex');
 	var user = {
 		name:req.body.name,
-		password:req.body.password
+		password:pwd
 	}
 	User.findOne(user,function(err,doc){
 		if(doc){
@@ -70,14 +51,16 @@ router.post('/register', function(req, res) {
   if(pwd != repwd){
   	res.json({"error":true,"msg":"两次密码输入不一致"});
   }else{
-  	User.findOne({"name":req.body.name},function(err,doc){
+  	var md5 = crypto.createHash('md5'),
+  	pwd =  md5.update(req.body.password).digest('hex');
+  	User.findOne({"name":name},function(err,doc){
 	  	if(doc){
   			res.json({"error":true,"msg":"用户名已存在"});
 	  	}else{
 			new User({
 				email:req.body.email,
-				name:req.body.name,
-				password:req.body.password
+				name:name,
+				password:pwd
 			}).save();
   			res.json({"error":false,"msg":"注册成功","href":"/users/userlist"});
 	  	}
