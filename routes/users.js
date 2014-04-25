@@ -5,12 +5,11 @@ var router = express.Router();
 var models = require('../models/user');
 
 var User = models.User;
-
 var crypto = require('crypto');
 
 
 
-
+ 
 //登录页面
 //router.get('/login',checkLogin);
 router.get('/login', function(req, res) {
@@ -69,10 +68,10 @@ router.post('/register', function(req, res) {
 	//res.redirect('/users/userlist');
   }
 });
-//用户列表
+//用户列表  
 router.get('/userlist', function(req, res) {
 	User.find(function(err,doc){
-		res.render('user/userlist',{"title":"用户列表","data":doc});
+		res.render('user/userlist',{"title":"用户列表","data":doc,"user":req.session.user});
 	});
 });
 router.get('/', function(req, res) {

@@ -1,0 +1,49 @@
+<%- include ../layout/header %>
+<div class="fix auto w980">
+	<%- include ../layout/nav %>
+	<div class="cell">
+		<div class="mt20 mb20 w600 auto bdc bg-white">
+			<h4 class="f14 p5 pl10 bgf0 mt1 bbc">注册</h4>
+			<div class="p30">
+				<form id="registerForm">
+				<div class="fix">
+					<span class="l w140 g6 mr20 tr pt5"><span class="red fs">*</span>标题：</span>
+					<div class="cell">
+						<input name="title" class="pct80 p5" placeholder="请输入文章标题" required />
+					</div>
+				</div>
+				<div class="fix mt20">
+					<span class="l w140 g6 mr20 tr pt5"><span class="red fs">*</span>内容：</span>
+					<div class="cell">
+						<textarea name="content" class="pct80 p5" placeholder="请输入文章内容" required></textarea>
+					</div>
+				</div>
+				<div class="fix mt20">
+					<span class="l w140 mr20">&nbsp;</span>
+					<div class="cell">
+						<h6 class="mt20 f14">
+							<input type="submit" id="submit" class="abs-clip">
+							<label for="submit" class="btn btn-red w120">发表文章</label>
+						</h6>
+					</div>
+				</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<script src="../../js/jq.js"></script>
+<script src="../../js/hValidate.js"></script>
+<script>
+	formValidate("registerForm","/post/add",function(k){
+		var json = k;
+		if (json.error){
+			alert(json.msg);
+		}else{
+			alert(json.msg);
+			window.location.href=json.href;
+		}
+		
+	});
+</script>
+<%- include ../layout/footer %>

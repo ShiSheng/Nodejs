@@ -1,9 +1,16 @@
 <%- include ../layout/header %>
-	<div class="auto w980">
+<div class="fix auto w980">
+	<%- include ../layout/nav %>
+	<div class="cell">
 		<% for(var i = 0 ;i <data.length;i++){%>
-		<h1><%=data[i].name %></h1>
-		<a href="mailto:<%=data[i].email %>"><%=data[i].email %></a>
-		<span><%=data[i].password %></span>
+		<ul>
+			<li class="mt5 mb5">
+				<h1>用户名：<a href="/post/get/<%=data[i].name %>"><%=data[i].name %></a>文章数：<%=data[i].post.length%> </h1>
+				<p>邮箱地址：<a href="mailto:<%=data[i].email %>"><%=data[i].email %></a></p>
+			</li>
+		</ul>
 		<% }%>
 	</div>
+</div>
+	
 <%- include ../layout/footer %>

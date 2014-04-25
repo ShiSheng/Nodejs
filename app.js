@@ -5,7 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var bodyParser = require('body-parser'); 
-// 数据库
+// 数据库 
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://crow2:q125759748@oceanic.mongohq.com:10017/Crow');
 // 数据库
@@ -50,14 +50,18 @@ app.use(function(req, res, next) {
         next();
     }
 });
-var routes = require('./routes/index');
-var users = require('./routes/users');
-var chat = require('./routes/chat');
 
+//路由设定
+var routes = require('./routes/index');//首页
+var users = require('./routes/users');//用户
+var chat = require('./routes/chat');//聊天室
+var post = require('./routes/post');//文章
 chat.use(io);
 app.use('/', routes);
 app.use('/users', users);
 app.use('/chat', chat);
+app.use('/post', post);
+
 /// catch 404 and forwarding to error handler
 app.use(function(req, res, next) {
     var err = new Error('Not Found');

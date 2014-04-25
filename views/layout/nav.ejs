@@ -1,0 +1,18 @@
+
+<div class="l w200">
+  <%if(user){%>
+    <h1>欢迎您，<%=user.name%>！</h1>
+  <%}%>
+  <ul>
+  <%if(!user){%>
+    <li class="f14 p10"><a href="/users/register">注册</a></li>
+    <li class="f14 p10"><a href="/users/login">登录</a></li>
+  <%}%>
+  <%if(user){%>
+    <li class="f14 p10"><a href="/post/add">发表文章</a></li>
+    <li class="f14 p10"><a href="/users/userlist">用户列表</a></li>
+    <li class="f14 p10"><a href="/chat/index">聊天室</a></li>
+    <li class="f14 p10"><a href="/users/logout">退出登录</a></li>
+  <%}%>
+  </ul>
+</div>
