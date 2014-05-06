@@ -36,7 +36,7 @@ router.post('/add', function(req, res) {
 		time :time 
 	}).save(function(err,doc){
 		User.update({"name":req.session.user.name},{$push:{"post":doc}},function(){
-		});
+		}); 
 	});
 	//res.render('get/'+req.session.user.name,{"title":req.session.user.name+"的文章列表","msg":"发表成功"})
   	res.json({"error":false,"msg":"发表成功","href":"get/"+req.session.user.name});
@@ -53,7 +53,7 @@ router.get('/get/:name',function(req,res){
 });
 router.get('/', function(req, res) {
 	Post.find(function(err,doc){
-		res.render('user/postlist',{"title":"文章列表","data":doc});
+		res.render('post/index',{"title":"文章列表","postlist":doc,"user":req.session.user});
 	});
 });
 

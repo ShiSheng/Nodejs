@@ -4,7 +4,7 @@
 	<div class="cell">
 		<% for(var i = 0 ;i <postlist.length;i++){%>
 		<div class="bbd">
-			<h2 class="f20 p5 red"><%=postlist[i].title%> <span class="f12 gray"><%=postlist[i].time.ymdm%></span></h2>
+			<h2 class="f20 p5 red"><%=postlist[i].title%> <span class="f14 blue"><%=postlist[i].username%></span> <span class="f12 gray"><%=postlist[i].time.ymdm%></span></h2>
 			<h2 class="f14 p5"><%=postlist[i].content%></h2>
 		</div>
 		<% }%>
