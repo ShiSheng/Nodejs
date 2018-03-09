@@ -7,7 +7,7 @@ var session = require('express-session');
 var bodyParser = require('body-parser'); 
 // 数据库 
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://crow2:q125759748@oceanic.mongohq.com:10017/Crow');
+mongoose.connect('mongodb://ooo:qxxxxxx@oceanic.mongohq.com:端口/Crow');
 // 数据库
 //var sessionStorage = require('./models/sessionStorage');
 var app = express();
